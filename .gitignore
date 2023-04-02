@@ -1,6 +1,7 @@
 env
+.env
 faculty_websites/faculty_websites/settings.py
-
+faculty_websites/manage.py
 *.log
 *.pot
 *.pyc

@@ -1,2 +1,9 @@
-/env
-/faculty_websites/faculty_websites/settings.py
+env
+faculty_websites/faculty_websites/settings.py
+
+*.log
+*.pot
+*.pyc
+__pycache__
+db.sqlite3
+media

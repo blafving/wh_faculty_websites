@@ -4,6 +4,7 @@ faculty_websites/faculty_websites/settings.py
 *.log
 *.pot
 *.pyc
-__pycache__
-db.sqlite3
+faculty_websites/faculty_websites/__pycache__
+faculty_websites/db.sqlite3
 media
+manage.py

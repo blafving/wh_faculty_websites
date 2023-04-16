@@ -18,7 +18,10 @@ Now get_departments gets a list of subdomains
 
 Next up:
 
-- [ ] Crawl subdomains
-build list of faculty from subdomain urls
-find Personal Websites Links
-retrieve Personal Website information
+- [x] Crawl subdomains
+- [ ] build list of faculty from subdomain urls
+- [ ] find Personal Websites Links
+- [ ] retrieve Personal Website information
+- [ ] SECONDARY
+  - [ ] add dates to jl files
+  - [ ] populate django website with data

@@ -2,6 +2,7 @@ import advertools as adv
 from urllib.parse import urlparse
 import pandas as pd
 import re
+import os
 
 DEPARTMENTS = 'https://www.wharton.upenn.edu/departments/'
 
@@ -9,11 +10,16 @@ def get_departments(dept_page):
     """
     Get departments from a department page.
     """
+    os.remove('departments.jl')
     adv.crawl(dept_page, 
         'departments.jl',
         xpath_selectors={'department_links': '//h3//a'})    
     crawl_df = pd.read_json('departments.jl', lines=True)
-    return crawl_df
+    print('Crawl DF \n')
+    print(str(crawl_df['department_links'][0]))
+    return dept_links(crawl_df['department_links'][0])
+
+get_departments(DEPARTMENTS)
 
 def dept_links(links_str):
     '''
@@ -22,13 +28,6 @@ def dept_links(links_str):
     return re.findall('https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))+', links_str)
 
 
-def get_faculty(dept_page):
-    """
-    Get faculty from a department page.
-    """
-    adv.crawl('https://www.wharton.upenn.edu/departments/')    
-    
-    return
 
 def count_subdoms(url):
     location = urlparse(url).netloc

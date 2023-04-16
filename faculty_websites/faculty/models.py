@@ -2,24 +2,60 @@ from django.db import models
 import requests
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-class Department(models.Model):
+
+class Person(models.Model):
+    TYPES = [
+        ('faculty', 'Faculty'),
+        ('staff', 'Staff'),
+        ('phd', 'PhD')
+    ]
+    
+    name = models.CharField(max_length=50)
+    email = models.EmailField()
+    profile_url = models.URLField()
+    type = models.CharField(max_length=10, choices=TYPES)
+
     def __str__(self):
-        return self.full_name
-    full_name = models.CharField(max_length=50)
+        return self.name
+    
+    def __init__(self, department, name, type, email=None, profile_url=None):
+        self.department = models.ForeignKey(Department, on_delete=models.CASCADE)
+        self.name = name
+        self.type = type
+        self.email = email
+        self.profile_url = profile_url
+
+class Department(models.Model):
+    name = models.CharField(max_length=50)
     four_letter_code = models.CharField('Four Letter Code', max_length=4)
+    url = models.URLField()
     faculty_url = models.URLField()
     staff_url = models.URLField()
     phd_url = models.URLField()
-    
+    members = models.ManyToManyField(Person, through='Membership')
 
+    def __str__(self):
+        return self.name
 
+    def get_staff_list(self):
+        pass
 
-# class Faculty(models.Model):
-#     departments = models.
-#     def __init__(self):
-#         self.departments = ['accounting', 'lgst', 'real-estate', 'bepp', 'mgmt', 
-#         'statistics', 'fnce', 'marketing', 'hcmg', 'oid'
-#         ]
+    def get_phd_list(self):
+        pass
+
+    def get_faculty_list(self):
+
+        pass
+
+    def get_all_list(self):
+        pass
+
+class Membership(models.Model):
+
+    person = models.ForeignKey(Person, on_delete=models.CASCADE)
+    group = models.ForeignKey(Department, on_delete=models.CASCADE)
+    type = 
+
 
 
 class Pages(models.Model):
@@ -63,7 +99,5 @@ class Pages(models.Model):
         return responses
 
 
-class Page(models.Model):
-    pages = models.ForeignKey(Pages, on_delete=models.CASCADE)
 
 
